@@ -5,7 +5,7 @@ import InterviewHeader from "./components/InterviewHeader.jsx";
 import InterviewerTile from "./components/InterviewerTile.jsx";
 import MeetingControls from "./components/MeetingControls.jsx";
 import TranscriptCaption from "./components/TranscriptCaption.jsx";
-import { INTERVIEW_CONFIG } from "./config/interviewConfig.js";
+import { INTERVIEW_CONFIG, buildInterviewSessionPayload } from "./config/interviewConfig.js";
 import {
   base64ToBytes,
   bytesToBase64,
@@ -328,13 +328,7 @@ function App() {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        userId: INTERVIEW_CONFIG.userId,
-        jobRole: INTERVIEW_CONFIG.jobRole,
-        experienceLevel: INTERVIEW_CONFIG.experienceLevel,
-        skills: INTERVIEW_CONFIG.skills,
-        language: INTERVIEW_CONFIG.language
-      })
+      body: JSON.stringify(buildInterviewSessionPayload())
     });
 
     if (!response.ok) {
@@ -606,7 +600,6 @@ function App() {
 
       <section className="meeting-stage">
         <InterviewerTile
-          assistantDraft={assistantDraft}
           isConnected={isConnected}
           isPlaying={isPlaying}
         />
